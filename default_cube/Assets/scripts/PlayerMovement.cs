@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private bool isMoving = false;
     private int i = 0;
+    public GameObject Player;
 
     public event Action Assemble; // Declare the Assemble event
 
@@ -70,11 +71,16 @@ public class PlayerMovement : MonoBehaviour
     }
      private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Platform"))
+        //if (collision.gameObject.CompareTag("Platform"))
+        if (rb.position.y < 0 )
         {
             // Player is no longer in contact with a platform, reload the level
             Debug.Log("GIR_GIA");
             levelController.LevelReload();
         }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        levelController.NextLevel();
     }
 }
